@@ -605,6 +605,65 @@ textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
   margin-bottom: 8px;
 }
 
+/* Photo */
+.photo-preview {
+  position: relative;
+  margin-bottom: 12px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: inline-block;
+}
+.photo-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: var(--radius);
+  display: block;
+}
+.photo-preview .photo-remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.6);
+  color: var(--white);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cam-btn {
+  background: var(--brown);
+  color: var(--white);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.cam-btn:active { transform: scale(0.95); }
+.chat-photo-preview {
+  margin: 8px 0;
+  max-width: 200px;
+}
+.chat-photo-preview img {
+  width: 100%;
+  border-radius: 8px;
+}
+.entry-thumb {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-top: 8px;
+}
+
 .hidden { display: none; }
 </style>
 </head>
@@ -659,6 +718,13 @@ textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
     </div>
 
     <div class="input-group">
+      <label>Photo <span style="font-weight:400;color:var(--text-light)">(optional)</span></label>
+      <button class="btn btn-secondary btn-small" id="addPhotoBtn" style="margin-bottom:8px">&#x1F4F7; Add Photo</button>
+      <input type="file" id="addPhotoInput" accept="image/*" capture="environment" class="hidden">
+      <div id="addPhotoPreview"></div>
+    </div>
+
+    <div class="input-group">
       <label>Category</label>
       <div class="cat-grid" id="catGrid">
         <button class="cat-btn" data-cat="seedlings"><span class="cat-icon">&#x1F331;</span>Seedlings</button>
@@ -704,7 +770,10 @@ textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
       <button class="btn btn-primary" id="saveApiKey">Save Key</button>
       <p style="margin-top:12px;font-size:0.75rem">Get a key at <strong>console.anthropic.com</strong></p>
     </div>
+    <div id="chatPhotoPreview"></div>
     <div class="chat-input-row" id="chatInputRow">
+      <button class="cam-btn" id="chatCamBtn" title="Send a photo">&#x1F4F7;</button>
+      <input type="file" id="chatPhotoInput" accept="image/*" capture="environment" class="hidden">
       <input type="text" id="chatInput" placeholder="Ask about your garden...">
       <button class="chat-send-btn" id="chatSend">&#x27A4;</button>
     </div>
@@ -894,10 +963,12 @@ function renderEntryCards(entries, container) {
   container.innerHTML = entries.map(e => {
     const cat = CATEGORIES[e.category] || CATEGORIES.general;
     const tagsHtml = (e.tags || []).filter(t => t).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+    const photoHtml = e.photo ? `<img class="entry-thumb" src="${e.photo}" alt="photo">` : '';
     return `<div class="card entry-card" data-id="${e.id}">
       <div class="entry-date">${formatDate(e.date)}</div>
       <div class="entry-text">${escapeHtml(e.text)}</div>
       <div class="entry-meta"><span class="badge cat">${cat.icon} ${cat.label}</span>${tagsHtml}</div>
+      ${photoHtml}
     </div>`;
   }).join('');
   container.querySelectorAll('.entry-card').forEach(card => {
@@ -944,12 +1015,14 @@ document.getElementById('saveBtn').addEventListener('click', () => {
   const text = document.getElementById('entryText').value.trim();
   if (!text) { showToast('Please enter an observation'); return; }
   const tags = document.getElementById('entryTags').value.split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
-  const entry = { id: generateId(), date: new Date().toISOString(), text, category: selectedCategory, tags, photo: null };
+  const entry = { id: generateId(), date: new Date().toISOString(), text, category: selectedCategory, tags, photo: addPhotoData || null };
   const entries = loadEntries();
   entries.push(entry);
   saveEntries(entries);
   document.getElementById('entryText').value = '';
   document.getElementById('entryTags').value = '';
+  addPhotoData = null;
+  document.getElementById('addPhotoPreview').innerHTML = '';
   selectedCategory = 'general';
   document.querySelectorAll('#catGrid .cat-btn').forEach(b => b.classList.toggle('selected', b.dataset.cat === 'general'));
   showToast('Observation saved!');
@@ -1014,6 +1087,67 @@ if (SpeechRecognition) {
   micHint.innerHTML = 'Use the <strong>\u{1F3A4} on your keyboard</strong> to dictate';
 }
 
+// ===================== PHOTO HANDLING =====================
+let addPhotoData = null; // base64 jpeg for add page
+let chatPhotoData = null; // base64 jpeg for chat
+
+function compressImage(file, maxWidth, quality) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height;
+        if (w > maxWidth) { h = (h * maxWidth) / w; w = maxWidth; }
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// Add page photo
+document.getElementById('addPhotoBtn').addEventListener('click', () => {
+  document.getElementById('addPhotoInput').click();
+});
+document.getElementById('addPhotoInput').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  addPhotoData = await compressImage(file, 800, 0.7);
+  document.getElementById('addPhotoPreview').innerHTML =
+    `<div class="photo-preview"><img src="${addPhotoData}"><button class="photo-remove" id="removeAddPhoto">\u2715</button></div>`;
+  document.getElementById('removeAddPhoto').addEventListener('click', () => {
+    addPhotoData = null;
+    document.getElementById('addPhotoPreview').innerHTML = '';
+  });
+  e.target.value = '';
+});
+
+// Chat page photo
+document.getElementById('chatCamBtn').addEventListener('click', () => {
+  document.getElementById('chatPhotoInput').click();
+});
+document.getElementById('chatPhotoInput').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  chatPhotoData = await compressImage(file, 1024, 0.8);
+  document.getElementById('chatPhotoPreview').innerHTML =
+    `<div class="photo-preview"><img src="${chatPhotoData}"><button class="photo-remove" id="removeChatPhoto">\u2715</button></div>`;
+  document.getElementById('removeChatPhoto').addEventListener('click', () => {
+    chatPhotoData = null;
+    document.getElementById('chatPhotoPreview').innerHTML = '';
+  });
+  if (!document.getElementById('chatInput').value.trim()) {
+    document.getElementById('chatInput').value = "What's going on with this plant?";
+  }
+  e.target.value = '';
+});
+
 // ===================== DETAIL OVERLAY =====================
 let currentDetailId = null;
 
@@ -1023,7 +1157,8 @@ function openDetail(id) {
   currentDetailId = id;
   const cat = CATEGORIES[entry.category] || CATEGORIES.general;
   document.getElementById('detailDate').textContent = formatDateLong(entry.date);
-  document.getElementById('detailText').textContent = entry.text;
+  document.getElementById('detailText').innerHTML = escapeHtml(entry.text) +
+    (entry.photo ? `<div style="margin-top:12px"><img src="${entry.photo}" style="max-width:100%;border-radius:8px"></div>` : '');
   document.getElementById('detailMeta').innerHTML =
     `<span class="badge cat">${cat.icon} ${cat.label}</span>` +
     (entry.tags || []).filter(t => t).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
@@ -1316,6 +1451,11 @@ async function sendChat() {
   const apiKey = getApiKey();
   if (!apiKey) { showToast('Please set your API key first'); return; }
 
+  // Capture photo if attached
+  const attachedPhoto = chatPhotoData;
+  chatPhotoData = null;
+  document.getElementById('chatPhotoPreview').innerHTML = '';
+
   // Hide suggestions after first message
   const suggestions = document.getElementById('chatSuggestions');
   if (suggestions) suggestions.remove();
@@ -1326,7 +1466,8 @@ async function sendChat() {
   // Add user message
   const userDiv = document.createElement('div');
   userDiv.className = 'chat-msg user';
-  userDiv.innerHTML = `<div class="chat-bubble">${escapeHtml(msg)}</div>`;
+  const photoInMsg = attachedPhoto ? `<div class="chat-photo-preview"><img src="${attachedPhoto}"></div>` : '';
+  userDiv.innerHTML = `<div class="chat-bubble">${photoInMsg}${escapeHtml(msg)}</div>`;
   messagesEl.appendChild(userDiv);
 
   // Add typing indicator
@@ -1336,8 +1477,18 @@ async function sendChat() {
   messagesEl.appendChild(typingDiv);
   messagesEl.scrollTop = messagesEl.scrollHeight;
 
-  // Build messages for API
-  chatHistory.push({ role: 'user', content: msg });
+  // Build messages for API — with image if attached
+  let userContent;
+  if (attachedPhoto) {
+    const base64Data = attachedPhoto.replace(/^data:image\/\w+;base64,/, '');
+    userContent = [
+      { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: base64Data } },
+      { type: 'text', text: msg }
+    ];
+  } else {
+    userContent = msg;
+  }
+  chatHistory.push({ role: 'user', content: userContent });
 
   const sendBtn = document.getElementById('chatSend');
   sendBtn.disabled = true;
