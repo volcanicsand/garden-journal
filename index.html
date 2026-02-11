@@ -65,16 +65,8 @@ body {
   z-index: 100;
   box-shadow: var(--shadow);
 }
-.header h1 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-}
-.header-sub {
-  font-size: 0.75rem;
-  opacity: 0.8;
-  margin-top: 2px;
-}
+.header h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: 0.3px; }
+.header-sub { font-size: 0.75rem; opacity: 0.8; margin-top: 2px; }
 
 /* Pages */
 .page {
@@ -110,14 +102,14 @@ body {
   border: none;
   color: var(--text-light);
   font-family: inherit;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 600;
   cursor: pointer;
-  padding: 8px 16px;
+  padding: 8px 6px;
   border-radius: 8px;
   transition: color 0.2s;
 }
-.nav-btn .nav-icon { font-size: 1.5rem; }
+.nav-btn .nav-icon { font-size: 1.4rem; }
 .nav-btn.active { color: var(--green); }
 
 /* Cards */
@@ -132,11 +124,7 @@ body {
 /* Entry cards */
 .entry-card { cursor: pointer; transition: transform 0.15s; }
 .entry-card:active { transform: scale(0.98); }
-.entry-date {
-  font-size: 0.75rem;
-  color: var(--text-light);
-  margin-bottom: 6px;
-}
+.entry-date { font-size: 0.75rem; color: var(--text-light); margin-bottom: 6px; }
 .entry-text {
   font-size: 0.95rem;
   line-height: 1.5;
@@ -146,15 +134,7 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.entry-text.expanded {
-  -webkit-line-clamp: unset;
-}
-.entry-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
+.entry-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
 /* Badges / Tags */
 .badge {
@@ -211,7 +191,7 @@ body {
   color: var(--text-light);
   margin-bottom: 6px;
 }
-textarea, input[type="text"], input[type="date"] {
+textarea, input[type="text"], input[type="date"], input[type="password"] {
   width: 100%;
   padding: 12px 14px;
   border: 2px solid var(--cream-dark);
@@ -223,15 +203,8 @@ textarea, input[type="text"], input[type="date"] {
   transition: border-color 0.2s;
   -webkit-appearance: none;
 }
-textarea:focus, input:focus {
-  outline: none;
-  border-color: var(--green-light);
-}
-textarea {
-  min-height: 120px;
-  resize: vertical;
-  line-height: 1.5;
-}
+textarea:focus, input:focus { outline: none; border-color: var(--green-light); }
+textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
 
 /* Buttons */
 .btn {
@@ -252,22 +225,9 @@ textarea {
 .btn:active { transform: scale(0.97); }
 .btn-primary { background: var(--green); color: var(--white); width: 100%; }
 .btn-primary:hover { background: var(--green-dark); }
-.btn-secondary {
-  background: var(--cream-dark);
-  color: var(--text);
-  width: 100%;
-}
+.btn-secondary { background: var(--cream-dark); color: var(--text); width: 100%; }
 .btn-danger { background: var(--red); color: var(--white); }
 .btn-small { padding: 8px 16px; font-size: 0.85rem; width: auto; }
-.btn-icon {
-  width: 48px;
-  height: 48px;
-  padding: 0;
-  border-radius: 50%;
-  font-size: 1.3rem;
-  border: none;
-  cursor: pointer;
-}
 
 /* Mic button */
 .mic-btn {
@@ -290,19 +250,10 @@ textarea {
   0%, 100% { box-shadow: 0 0 0 0 rgba(194, 80, 80, 0.4); }
   50% { box-shadow: 0 0 0 12px rgba(194, 80, 80, 0); }
 }
-.mic-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-.mic-hint {
-  font-size: 0.75rem;
-  color: var(--text-light);
-  margin-bottom: 16px;
-}
+.mic-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.mic-hint { font-size: 0.75rem; color: var(--text-light); margin-bottom: 16px; }
 
-/* Filter bar on journal page */
+/* Filter bar */
 .filter-bar {
   display: flex;
   gap: 8px;
@@ -331,14 +282,9 @@ textarea {
   color: var(--white);
 }
 
-/* Search page */
-.search-box {
-  position: relative;
-  margin-bottom: 12px;
-}
-.search-box input {
-  padding-left: 40px;
-}
+/* Search box */
+.search-box { position: relative; margin-bottom: 12px; }
+.search-box input { padding-left: 40px; }
 .search-box .search-icon {
   position: absolute;
   left: 14px;
@@ -348,19 +294,12 @@ textarea {
   color: var(--text-light);
   pointer-events: none;
 }
-.date-range {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-  align-items: center;
-}
+.date-range { display: flex; gap: 8px; margin-bottom: 12px; align-items: center; }
 .date-range input { flex: 1; font-size: 0.85rem; padding: 10px; }
 .date-range span { color: var(--text-light); font-size: 0.85rem; }
 
 /* Settings */
-.settings-section {
-  margin-bottom: 20px;
-}
+.settings-section { margin-bottom: 20px; }
 .settings-section h3 {
   font-size: 0.9rem;
   color: var(--text-light);
@@ -368,29 +307,12 @@ textarea {
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-.settings-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.entry-count {
-  text-align: center;
-  color: var(--text-light);
-  font-size: 0.85rem;
-  padding: 20px;
-}
-.entry-count strong {
-  display: block;
-  font-size: 2rem;
-  color: var(--green);
-}
+.settings-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.entry-count { text-align: center; color: var(--text-light); font-size: 0.85rem; padding: 20px; }
+.entry-count strong { display: block; font-size: 2rem; color: var(--green); }
 
 /* Empty state */
-.empty-state {
-  text-align: center;
-  padding: 48px 20px;
-  color: var(--text-light);
-}
+.empty-state { text-align: center; padding: 48px 20px; color: var(--text-light); }
 .empty-state .empty-icon { font-size: 3rem; margin-bottom: 12px; }
 .empty-state p { font-size: 0.95rem; line-height: 1.5; }
 
@@ -427,21 +349,9 @@ textarea {
   border-radius: 2px;
   margin: 0 auto 16px;
 }
-.detail-date {
-  font-size: 0.85rem;
-  color: var(--text-light);
-  margin-bottom: 12px;
-}
-.detail-text {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  margin-bottom: 16px;
-}
-.detail-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 16px;
-}
+.detail-date { font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px; }
+.detail-text { font-size: 1.05rem; line-height: 1.7; margin-bottom: 16px; }
+.detail-actions { display: flex; gap: 10px; margin-top: 16px; }
 
 /* Toast */
 .toast {
@@ -461,10 +371,7 @@ textarea {
   pointer-events: none;
   white-space: nowrap;
 }
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 /* Confirm dialog */
 .confirm-overlay {
@@ -490,7 +397,214 @@ textarea {
 .confirm-actions { display: flex; gap: 10px; }
 .confirm-actions .btn { flex: 1; }
 
-/* Hidden file input */
+/* ===== CHAT (Ask) ===== */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100dvh - 120px - var(--nav-height) - var(--safe-bottom));
+  min-height: 300px;
+}
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.chat-msg {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+}
+.chat-msg.user { align-items: flex-end; }
+.chat-msg.assistant { align-items: flex-start; }
+.chat-bubble {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+.chat-msg.user .chat-bubble {
+  background: var(--green);
+  color: var(--white);
+  border-bottom-right-radius: 4px;
+}
+.chat-msg.assistant .chat-bubble {
+  background: var(--white);
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+  box-shadow: var(--shadow);
+}
+.chat-bubble p { margin-bottom: 8px; }
+.chat-bubble p:last-child { margin-bottom: 0; }
+.chat-bubble ul, .chat-bubble ol { margin: 4px 0 8px 20px; }
+.chat-bubble li { margin-bottom: 4px; }
+.chat-bubble strong { font-weight: 700; }
+.chat-bubble code {
+  background: var(--cream-dark);
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+.chat-input-row {
+  display: flex;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--cream-dark);
+}
+.chat-input-row input {
+  flex: 1;
+  padding: 12px 14px;
+}
+.chat-send-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: var(--green);
+  color: var(--white);
+  font-size: 1.2rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.chat-send-btn:disabled { background: var(--cream-dark); color: var(--text-light); }
+.chat-send-btn:active { transform: scale(0.95); }
+.chat-typing {
+  display: flex;
+  gap: 4px;
+  padding: 12px 16px;
+}
+.chat-typing span {
+  width: 8px;
+  height: 8px;
+  background: var(--text-light);
+  border-radius: 50%;
+  animation: typingDot 1.4s ease-in-out infinite;
+}
+.chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+.chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingDot {
+  0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+  30% { opacity: 1; transform: scale(1); }
+}
+.chat-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+.chat-suggestion-btn {
+  background: var(--white);
+  border: 2px solid var(--cream-dark);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+}
+.chat-suggestion-btn:active {
+  border-color: var(--green);
+  background: var(--green-pale);
+}
+.api-key-prompt {
+  text-align: center;
+  padding: 20px;
+}
+.api-key-prompt p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+/* ===== PLANTING CALENDAR ===== */
+.month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.month-nav-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--cream-dark);
+  background: var(--white);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.month-nav-btn:active { background: var(--cream-dark); }
+.month-nav h2 { font-size: 1.1rem; font-weight: 700; min-width: 160px; text-align: center; }
+.month-nav .month-current {
+  font-size: 0.7rem;
+  background: var(--green);
+  color: var(--white);
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.plan-section { margin-bottom: 16px; }
+.plan-section-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.plan-section-title.start-indoors { color: #8b5cf6; }
+.plan-section-title.direct-sow { color: var(--green-dark); }
+.plan-section-title.transplant { color: #d97706; }
+.plan-section-title.harvest { color: var(--red); }
+.plan-section-title.tasks { color: var(--brown); }
+.plan-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.plan-item {
+  background: var(--white);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  box-shadow: var(--shadow);
+  border-left: 3px solid var(--cream-dark);
+}
+.plan-item.start-indoors { border-left-color: #8b5cf6; }
+.plan-item.direct-sow { border-left-color: var(--green-dark); }
+.plan-item.transplant { border-left-color: #d97706; }
+.plan-item.harvest { border-left-color: var(--red); }
+.plan-item.tasks { border-left-color: var(--brown); }
+.plan-tip {
+  background: var(--green-pale);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--green-dark);
+  margin-top: 8px;
+}
+.plan-journal-entries { margin-top: 16px; }
+.plan-journal-entries h4 {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
 .hidden { display: none; }
 </style>
 </head>
@@ -504,6 +618,10 @@ textarea {
 
 <!-- ===== JOURNAL PAGE ===== -->
 <div id="page-journal" class="page active">
+  <div class="search-box">
+    <span class="search-icon">&#x1F50D;</span>
+    <input type="text" id="journalSearch" placeholder="Search observations...">
+  </div>
   <div class="filter-bar" id="filterBar">
     <button class="filter-chip active" data-cat="all">All</button>
     <button class="filter-chip" data-cat="seedlings">Seedlings</button>
@@ -517,6 +635,17 @@ textarea {
   <div id="journalEntries"></div>
 </div>
 
+<!-- ===== PLAN PAGE ===== -->
+<div id="page-plan" class="page">
+  <div class="month-nav">
+    <button class="month-nav-btn" id="prevMonth">&#9664;</button>
+    <h2 id="monthTitle"></h2>
+    <button class="month-nav-btn" id="nextMonth">&#9654;</button>
+  </div>
+  <div id="planContent"></div>
+  <div class="plan-journal-entries" id="planJournalEntries"></div>
+</div>
+
 <!-- ===== ADD PAGE ===== -->
 <div id="page-add" class="page">
   <div class="card">
@@ -524,7 +653,7 @@ textarea {
       <label>What did you observe?</label>
       <div class="mic-row">
         <textarea id="entryText" placeholder="Tap the mic or start typing..."></textarea>
-        <button class="mic-btn" id="micBtn" title="Voice input">🎤</button>
+        <button class="mic-btn" id="micBtn" title="Voice input">&#x1F3A4;</button>
       </div>
       <div class="mic-hint" id="micHint">Tap the microphone to dictate</div>
     </div>
@@ -532,27 +661,13 @@ textarea {
     <div class="input-group">
       <label>Category</label>
       <div class="cat-grid" id="catGrid">
-        <button class="cat-btn" data-cat="seedlings">
-          <span class="cat-icon">🌱</span>Seedlings
-        </button>
-        <button class="cat-btn" data-cat="beds">
-          <span class="cat-icon">🌿</span>Beds/Plots
-        </button>
-        <button class="cat-btn" data-cat="harvest">
-          <span class="cat-icon">🍅</span>Harvest
-        </button>
-        <button class="cat-btn" data-cat="pests">
-          <span class="cat-icon">🐛</span>Pests
-        </button>
-        <button class="cat-btn" data-cat="weather">
-          <span class="cat-icon">🌤️</span>Weather
-        </button>
-        <button class="cat-btn" data-cat="watering">
-          <span class="cat-icon">💧</span>Watering
-        </button>
-        <button class="cat-btn selected" data-cat="general">
-          <span class="cat-icon">📝</span>General
-        </button>
+        <button class="cat-btn" data-cat="seedlings"><span class="cat-icon">&#x1F331;</span>Seedlings</button>
+        <button class="cat-btn" data-cat="beds"><span class="cat-icon">&#x1F33F;</span>Beds/Plots</button>
+        <button class="cat-btn" data-cat="harvest"><span class="cat-icon">&#x1F345;</span>Harvest</button>
+        <button class="cat-btn" data-cat="pests"><span class="cat-icon">&#x1F41B;</span>Pests</button>
+        <button class="cat-btn" data-cat="weather"><span class="cat-icon">&#x1F324;</span>Weather</button>
+        <button class="cat-btn" data-cat="watering"><span class="cat-icon">&#x1F4A7;</span>Watering</button>
+        <button class="cat-btn selected" data-cat="general"><span class="cat-icon">&#x1F4DD;</span>General</button>
       </div>
     </div>
 
@@ -565,28 +680,35 @@ textarea {
   </div>
 </div>
 
-<!-- ===== SEARCH PAGE ===== -->
-<div id="page-search" class="page">
-  <div class="search-box">
-    <span class="search-icon">🔍</span>
-    <input type="text" id="searchInput" placeholder="Search observations...">
+<!-- ===== ASK PAGE ===== -->
+<div id="page-ask" class="page">
+  <div class="chat-container">
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg assistant">
+        <div class="chat-bubble">
+          <p>Hi! I'm your garden assistant. I know about your <strong>1,200 sq ft Zone 7b/8a garden in DC</strong>, and I can see all your journal entries.</p>
+          <p>Ask me anything about what to plant, pest identification, timing, or your garden history.</p>
+        </div>
+      </div>
+      <div class="chat-suggestions" id="chatSuggestions">
+        <button class="chat-suggestion-btn" data-q="What should I be doing in my garden this week?">What should I be doing in my garden this week?</button>
+        <button class="chat-suggestion-btn" data-q="What are the best vegetables for Zone 7b/8a beginners?">What are the best vegetables for Zone 7b/8a beginners?</button>
+        <button class="chat-suggestion-btn" data-q="When should I start tomato seeds indoors?">When should I start tomato seeds indoors?</button>
+      </div>
+    </div>
+    <div id="apiKeyPrompt" class="api-key-prompt hidden">
+      <p>To chat with your garden assistant, enter your <strong>Anthropic API key</strong>. It's stored only on this device.</p>
+      <div class="input-group">
+        <input type="password" id="apiKeyInput" placeholder="sk-ant-...">
+      </div>
+      <button class="btn btn-primary" id="saveApiKey">Save Key</button>
+      <p style="margin-top:12px;font-size:0.75rem">Get a key at <strong>console.anthropic.com</strong></p>
+    </div>
+    <div class="chat-input-row" id="chatInputRow">
+      <input type="text" id="chatInput" placeholder="Ask about your garden...">
+      <button class="chat-send-btn" id="chatSend">&#x27A4;</button>
+    </div>
   </div>
-  <div class="date-range">
-    <input type="date" id="dateFrom" placeholder="From">
-    <span>to</span>
-    <input type="date" id="dateTo" placeholder="To">
-  </div>
-  <div class="filter-bar" id="searchFilterBar">
-    <button class="filter-chip active" data-cat="all">All</button>
-    <button class="filter-chip" data-cat="seedlings">Seedlings</button>
-    <button class="filter-chip" data-cat="beds">Beds/Plots</button>
-    <button class="filter-chip" data-cat="harvest">Harvest</button>
-    <button class="filter-chip" data-cat="pests">Pests/Disease</button>
-    <button class="filter-chip" data-cat="weather">Weather</button>
-    <button class="filter-chip" data-cat="watering">Watering</button>
-    <button class="filter-chip" data-cat="general">General</button>
-  </div>
-  <div id="searchResults"></div>
 </div>
 
 <!-- ===== SETTINGS PAGE ===== -->
@@ -596,10 +718,21 @@ textarea {
   </div>
 
   <div class="settings-section">
+    <h3>Claude API Key</h3>
+    <div class="input-group" style="margin-bottom:8px">
+      <input type="password" id="settingsApiKey" placeholder="sk-ant-...">
+    </div>
+    <div class="settings-row">
+      <button class="btn btn-secondary btn-small" id="settingsSaveKey">Save Key</button>
+      <button class="btn btn-secondary btn-small" id="settingsClearKey">Remove Key</button>
+    </div>
+  </div>
+
+  <div class="settings-section">
     <h3>Data Management</h3>
     <div class="settings-row">
-      <button class="btn btn-secondary btn-small" id="exportBtn">📥 Export JSON</button>
-      <button class="btn btn-secondary btn-small" id="importBtn">📤 Import JSON</button>
+      <button class="btn btn-secondary btn-small" id="exportBtn">Export JSON</button>
+      <button class="btn btn-secondary btn-small" id="importBtn">Import JSON</button>
     </div>
     <input type="file" id="importFile" accept=".json" class="hidden">
   </div>
@@ -607,14 +740,14 @@ textarea {
   <div class="settings-section">
     <h3>Backup</h3>
     <div class="settings-row">
-      <button class="btn btn-secondary btn-small" id="emailBtn">✉️ Email Backup</button>
+      <button class="btn btn-secondary btn-small" id="emailBtn">Email Backup</button>
     </div>
   </div>
 
   <div class="settings-section">
     <h3>Danger Zone</h3>
     <div class="settings-row">
-      <button class="btn btn-danger btn-small" id="clearBtn">🗑️ Delete All Data</button>
+      <button class="btn btn-danger btn-small" id="clearBtn">Delete All Data</button>
     </div>
   </div>
 </div>
@@ -651,45 +784,45 @@ textarea {
 <!-- ===== BOTTOM NAV ===== -->
 <nav class="bottom-nav">
   <button class="nav-btn active" data-page="journal">
-    <span class="nav-icon">📖</span>Journal
+    <span class="nav-icon">&#x1F4D6;</span>Journal
+  </button>
+  <button class="nav-btn" data-page="plan">
+    <span class="nav-icon">&#x1F4C5;</span>Plan
   </button>
   <button class="nav-btn" data-page="add">
-    <span class="nav-icon">➕</span>Add
+    <span class="nav-icon">&#x2795;</span>Add
   </button>
-  <button class="nav-btn" data-page="search">
-    <span class="nav-icon">🔍</span>Search
+  <button class="nav-btn" data-page="ask">
+    <span class="nav-icon">&#x1F33B;</span>Ask
   </button>
   <button class="nav-btn" data-page="settings">
-    <span class="nav-icon">⚙️</span>Settings
+    <span class="nav-icon">&#x2699;</span>More
   </button>
 </nav>
 
 <script>
 // ===================== DATA LAYER =====================
 const STORAGE_KEY = 'garden-journal-entries';
+const API_KEY_KEY = 'garden-journal-api-key';
 const CATEGORIES = {
-  seedlings: { label: 'Seedlings', icon: '🌱' },
-  beds:      { label: 'Beds/Plots', icon: '🌿' },
-  harvest:   { label: 'Harvest', icon: '🍅' },
-  pests:     { label: 'Pests/Disease', icon: '🐛' },
-  weather:   { label: 'Weather', icon: '🌤️' },
-  watering:  { label: 'Watering', icon: '💧' },
-  general:   { label: 'General', icon: '📝' }
+  seedlings: { label: 'Seedlings', icon: '\u{1F331}' },
+  beds:      { label: 'Beds/Plots', icon: '\u{1F33F}' },
+  harvest:   { label: 'Harvest', icon: '\u{1F345}' },
+  pests:     { label: 'Pests/Disease', icon: '\u{1F41B}' },
+  weather:   { label: 'Weather', icon: '\u{1F324}\uFE0F' },
+  watering:  { label: 'Watering', icon: '\u{1F4A7}' },
+  general:   { label: 'General', icon: '\u{1F4DD}' }
 };
 
 function loadEntries() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  } catch { return []; }
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch { return []; }
 }
-
-function saveEntries(entries) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-}
-
-function generateId() {
-  return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
-}
+function saveEntries(entries) { localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }
+function generateId() { return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8); }
+function getApiKey() { return localStorage.getItem(API_KEY_KEY) || ''; }
+function setApiKey(k) { localStorage.setItem(API_KEY_KEY, k); }
+function clearApiKey() { localStorage.removeItem(API_KEY_KEY); }
 
 // ===================== NAVIGATION =====================
 const pages = document.querySelectorAll('.page');
@@ -700,12 +833,13 @@ function navigate(pageName) {
   navBtns.forEach(b => b.classList.toggle('active', b.dataset.page === pageName));
   if (pageName === 'journal') renderJournal();
   if (pageName === 'settings') renderSettings();
+  if (pageName === 'plan') renderPlan();
+  if (pageName === 'ask') initChat();
   window.scrollTo(0, 0);
 }
-
 navBtns.forEach(btn => btn.addEventListener('click', () => navigate(btn.dataset.page)));
 
-// ===================== TOAST =====================
+// ===================== TOAST / CONFIRM =====================
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -713,7 +847,6 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-// ===================== CONFIRM DIALOG =====================
 let confirmCallback = null;
 function showConfirm(msg, cb) {
   document.getElementById('confirmMsg').textContent = msg;
@@ -733,59 +866,17 @@ document.getElementById('confirmYes').addEventListener('click', () => {
 // ===================== FORMAT HELPERS =====================
 function formatDate(iso) {
   const d = new Date(iso);
-  const now = new Date();
-  const diffMs = now - d;
-  const diffDays = Math.floor(diffMs / 86400000);
-
-  if (diffDays === 0) {
-    return 'Today at ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-  } else if (diffDays === 1) {
-    return 'Yesterday at ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-  } else if (diffDays < 7) {
-    return d.toLocaleDateString('en-US', { weekday: 'long' }) + ' at ' +
-           d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-  }
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) +
-         ' at ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  const diffDays = Math.floor((new Date() - d) / 86400000);
+  if (diffDays === 0) return 'Today at ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  if (diffDays === 1) return 'Yesterday at ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  if (diffDays < 7) return d.toLocaleDateString('en-US', { weekday: 'long' }) + ' at ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' at ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 }
 
 function formatDateLong(iso) {
   const d = new Date(iso);
-  return d.toLocaleDateString('en-US', {
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-  }) + ' at ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-}
-
-// ===================== RENDER ENTRIES =====================
-function renderEntryCards(entries, container) {
-  if (entries.length === 0) {
-    container.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">🌻</div>
-        <p>No observations yet.<br>Tap <strong>Add</strong> to record your first one!</p>
-      </div>`;
-    return;
-  }
-
-  container.innerHTML = entries.map(e => {
-    const cat = CATEGORIES[e.category] || CATEGORIES.general;
-    const tagsHtml = (e.tags || []).filter(t => t).map(t =>
-      `<span class="tag">${escapeHtml(t)}</span>`
-    ).join('');
-    return `
-      <div class="card entry-card" data-id="${e.id}">
-        <div class="entry-date">${formatDate(e.date)}</div>
-        <div class="entry-text">${escapeHtml(e.text)}</div>
-        <div class="entry-meta">
-          <span class="badge cat">${cat.icon} ${cat.label}</span>
-          ${tagsHtml}
-        </div>
-      </div>`;
-  }).join('');
-
-  container.querySelectorAll('.entry-card').forEach(card => {
-    card.addEventListener('click', () => openDetail(card.dataset.id));
-  });
+  return d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) +
+    ' at ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 }
 
 function escapeHtml(str) {
@@ -794,17 +885,41 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
-// ===================== JOURNAL PAGE =====================
+// ===================== RENDER ENTRIES =====================
+function renderEntryCards(entries, container) {
+  if (entries.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">\u{1F33B}</div><p>No observations found.</p></div>';
+    return;
+  }
+  container.innerHTML = entries.map(e => {
+    const cat = CATEGORIES[e.category] || CATEGORIES.general;
+    const tagsHtml = (e.tags || []).filter(t => t).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+    return `<div class="card entry-card" data-id="${e.id}">
+      <div class="entry-date">${formatDate(e.date)}</div>
+      <div class="entry-text">${escapeHtml(e.text)}</div>
+      <div class="entry-meta"><span class="badge cat">${cat.icon} ${cat.label}</span>${tagsHtml}</div>
+    </div>`;
+  }).join('');
+  container.querySelectorAll('.entry-card').forEach(card => {
+    card.addEventListener('click', () => openDetail(card.dataset.id));
+  });
+}
+
+// ===================== JOURNAL PAGE (with search) =====================
 let journalFilter = 'all';
 
 function renderJournal() {
+  const query = document.getElementById('journalSearch').value.trim().toLowerCase();
   let entries = loadEntries().sort((a, b) => new Date(b.date) - new Date(a.date));
-  if (journalFilter !== 'all') {
-    entries = entries.filter(e => e.category === journalFilter);
-  }
+  if (journalFilter !== 'all') entries = entries.filter(e => e.category === journalFilter);
+  if (query) entries = entries.filter(e =>
+    e.text.toLowerCase().includes(query) ||
+    (e.tags || []).some(t => t.toLowerCase().includes(query))
+  );
   renderEntryCards(entries, document.getElementById('journalEntries'));
 }
 
+document.getElementById('journalSearch').addEventListener('input', renderJournal);
 document.getElementById('filterBar').addEventListener('click', e => {
   const chip = e.target.closest('.filter-chip');
   if (!chip) return;
@@ -827,35 +942,16 @@ document.getElementById('catGrid').addEventListener('click', e => {
 
 document.getElementById('saveBtn').addEventListener('click', () => {
   const text = document.getElementById('entryText').value.trim();
-  if (!text) {
-    showToast('Please enter an observation');
-    return;
-  }
-
-  const tagsRaw = document.getElementById('entryTags').value;
-  const tags = tagsRaw.split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
-
-  const entry = {
-    id: generateId(),
-    date: new Date().toISOString(),
-    text,
-    category: selectedCategory,
-    tags,
-    photo: null
-  };
-
+  if (!text) { showToast('Please enter an observation'); return; }
+  const tags = document.getElementById('entryTags').value.split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
+  const entry = { id: generateId(), date: new Date().toISOString(), text, category: selectedCategory, tags, photo: null };
   const entries = loadEntries();
   entries.push(entry);
   saveEntries(entries);
-
-  // Reset form
   document.getElementById('entryText').value = '';
   document.getElementById('entryTags').value = '';
   selectedCategory = 'general';
-  document.querySelectorAll('#catGrid .cat-btn').forEach(b =>
-    b.classList.toggle('selected', b.dataset.cat === 'general')
-  );
-
+  document.querySelectorAll('#catGrid .cat-btn').forEach(b => b.classList.toggle('selected', b.dataset.cat === 'general'));
   showToast('Observation saved!');
   navigate('journal');
 });
@@ -863,136 +959,74 @@ document.getElementById('saveBtn').addEventListener('click', () => {
 // ===================== VOICE INPUT =====================
 const micBtn = document.getElementById('micBtn');
 const micHint = document.getElementById('micHint');
-const entryText = document.getElementById('entryText');
-
+const entryTextEl = document.getElementById('entryText');
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-let recognition = null;
-let isListening = false;
+let recognition = null, isListening = false;
 
 if (SpeechRecognition) {
   recognition = new SpeechRecognition();
   recognition.continuous = true;
   recognition.interimResults = true;
   recognition.lang = 'en-US';
-
   let finalTranscript = '';
-
   recognition.onresult = (e) => {
     let interim = '';
     for (let i = e.resultIndex; i < e.results.length; i++) {
-      if (e.results[i].isFinal) {
-        finalTranscript += e.results[i][0].transcript;
-      } else {
-        interim += e.results[i][0].transcript;
-      }
+      if (e.results[i].isFinal) finalTranscript += e.results[i][0].transcript;
+      else interim += e.results[i][0].transcript;
     }
-    const existing = entryText.value.slice(0, entryText.value.length - (entryText.dataset.interim || '').length);
-    entryText.value = existing + finalTranscript + interim;
-    entryText.dataset.interim = interim;
+    const existing = entryTextEl.value.slice(0, entryTextEl.value.length - (entryTextEl.dataset.interim || '').length);
+    entryTextEl.value = existing + finalTranscript + interim;
+    entryTextEl.dataset.interim = interim;
   };
-
   recognition.onend = () => {
     isListening = false;
     micBtn.classList.remove('listening');
-    micBtn.textContent = '🎤';
+    micBtn.textContent = '\u{1F3A4}';
     micHint.textContent = 'Tap the microphone to dictate';
-    entryText.dataset.interim = '';
+    entryTextEl.dataset.interim = '';
     finalTranscript = '';
   };
-
   recognition.onerror = () => {
     isListening = false;
     micBtn.classList.remove('listening');
-    micBtn.textContent = '🎤';
+    micBtn.textContent = '\u{1F3A4}';
     micHint.textContent = 'Tap the microphone to dictate';
     finalTranscript = '';
   };
-
   micBtn.addEventListener('click', () => {
-    if (isListening) {
-      recognition.stop();
-    } else {
+    if (isListening) { recognition.stop(); }
+    else {
       finalTranscript = '';
-      entryText.dataset.interim = '';
+      entryTextEl.dataset.interim = '';
       recognition.start();
       isListening = true;
       micBtn.classList.add('listening');
-      micBtn.textContent = '⏹';
+      micBtn.textContent = '\u23F9';
       micHint.textContent = 'Listening... tap to stop';
     }
   });
 } else {
-  // No Web Speech API — guide user to iOS keyboard dictation
   micBtn.addEventListener('click', () => {
-    entryText.focus();
-    micHint.innerHTML = 'Tap the <strong>🎤 on your keyboard</strong> to dictate';
+    entryTextEl.focus();
+    micHint.innerHTML = 'Tap the <strong>\u{1F3A4} on your keyboard</strong> to dictate';
   });
-  micHint.innerHTML = 'Use the <strong>🎤 on your keyboard</strong> to dictate';
+  micHint.innerHTML = 'Use the <strong>\u{1F3A4} on your keyboard</strong> to dictate';
 }
-
-// ===================== SEARCH PAGE =====================
-let searchFilter = 'all';
-const searchInput = document.getElementById('searchInput');
-const dateFrom = document.getElementById('dateFrom');
-const dateTo = document.getElementById('dateTo');
-
-function performSearch() {
-  const query = searchInput.value.trim().toLowerCase();
-  const from = dateFrom.value ? new Date(dateFrom.value + 'T00:00:00') : null;
-  const to = dateTo.value ? new Date(dateTo.value + 'T23:59:59') : null;
-
-  let entries = loadEntries().sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  if (searchFilter !== 'all') {
-    entries = entries.filter(e => e.category === searchFilter);
-  }
-  if (query) {
-    entries = entries.filter(e =>
-      e.text.toLowerCase().includes(query) ||
-      (e.tags || []).some(t => t.toLowerCase().includes(query))
-    );
-  }
-  if (from) {
-    entries = entries.filter(e => new Date(e.date) >= from);
-  }
-  if (to) {
-    entries = entries.filter(e => new Date(e.date) <= to);
-  }
-
-  renderEntryCards(entries, document.getElementById('searchResults'));
-}
-
-searchInput.addEventListener('input', performSearch);
-dateFrom.addEventListener('change', performSearch);
-dateTo.addEventListener('change', performSearch);
-
-document.getElementById('searchFilterBar').addEventListener('click', e => {
-  const chip = e.target.closest('.filter-chip');
-  if (!chip) return;
-  document.querySelectorAll('#searchFilterBar .filter-chip').forEach(c => c.classList.remove('active'));
-  chip.classList.add('active');
-  searchFilter = chip.dataset.cat;
-  performSearch();
-});
 
 // ===================== DETAIL OVERLAY =====================
 let currentDetailId = null;
 
 function openDetail(id) {
-  const entries = loadEntries();
-  const entry = entries.find(e => e.id === id);
+  const entry = loadEntries().find(e => e.id === id);
   if (!entry) return;
-
   currentDetailId = id;
   const cat = CATEGORIES[entry.category] || CATEGORIES.general;
-
   document.getElementById('detailDate').textContent = formatDateLong(entry.date);
   document.getElementById('detailText').textContent = entry.text;
-
-  const metaHtml = `<span class="badge cat">${cat.icon} ${cat.label}</span>` +
+  document.getElementById('detailMeta').innerHTML =
+    `<span class="badge cat">${cat.icon} ${cat.label}</span>` +
     (entry.tags || []).filter(t => t).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
-  document.getElementById('detailMeta').innerHTML = metaHtml;
-
   document.getElementById('detailOverlay').classList.add('open');
 }
 
@@ -1000,59 +1034,411 @@ document.getElementById('detailCloseBtn').addEventListener('click', () => {
   document.getElementById('detailOverlay').classList.remove('open');
   currentDetailId = null;
 });
-
 document.getElementById('detailOverlay').addEventListener('click', e => {
   if (e.target === document.getElementById('detailOverlay')) {
     document.getElementById('detailOverlay').classList.remove('open');
     currentDetailId = null;
   }
 });
-
 document.getElementById('detailDeleteBtn').addEventListener('click', () => {
   showConfirm('Delete this observation? This cannot be undone.', () => {
-    let entries = loadEntries();
-    entries = entries.filter(e => e.id !== currentDetailId);
-    saveEntries(entries);
+    saveEntries(loadEntries().filter(e => e.id !== currentDetailId));
     document.getElementById('detailOverlay').classList.remove('open');
     currentDetailId = null;
     renderJournal();
-    performSearch();
     showToast('Observation deleted');
   });
 });
-
 document.getElementById('detailEditBtn').addEventListener('click', () => {
-  const entries = loadEntries();
-  const entry = entries.find(e => e.id === currentDetailId);
+  const entry = loadEntries().find(e => e.id === currentDetailId);
   if (!entry) return;
-
   document.getElementById('detailOverlay').classList.remove('open');
-
-  // Populate add form with entry data
   document.getElementById('entryText').value = entry.text;
   document.getElementById('entryTags').value = (entry.tags || []).join(', ');
   selectedCategory = entry.category;
-  document.querySelectorAll('#catGrid .cat-btn').forEach(b =>
-    b.classList.toggle('selected', b.dataset.cat === entry.category)
-  );
-
-  // Delete old entry
-  const remaining = entries.filter(e => e.id !== currentDetailId);
-  saveEntries(remaining);
+  document.querySelectorAll('#catGrid .cat-btn').forEach(b => b.classList.toggle('selected', b.dataset.cat === entry.category));
+  saveEntries(loadEntries().filter(e => e.id !== currentDetailId));
   currentDetailId = null;
-
   navigate('add');
-  showToast('Editing observation — save when done');
+  showToast('Editing \u2014 save when done');
 });
+
+// ===================== PLANTING CALENDAR =====================
+const PLANTING_DATA = {
+  0: { // January
+    name: 'January',
+    indoors: ['Onions', 'Leeks'],
+    sow: [],
+    transplant: [],
+    harvest: ['Kale (overwintered)', 'Winter lettuce (cold frame)'],
+    tasks: ['Order seeds and plan garden layout', 'Review last year\u2019s journal notes', 'Clean and sharpen tools', 'Start a seed inventory']
+  },
+  1: { // February
+    name: 'February',
+    indoors: ['Peppers', 'Eggplant', 'Broccoli', 'Cauliflower', 'Cabbage', 'Celery'],
+    sow: [],
+    transplant: [],
+    harvest: [],
+    tasks: ['Set up seed starting station with grow lights', 'Prune fruit trees and grape vines', 'Amend beds with compost if soil is workable', 'Test soil pH and nutrients']
+  },
+  2: { // March
+    name: 'March',
+    indoors: ['Tomatoes', 'Basil', 'Herbs (parsley, cilantro)'],
+    sow: ['Peas', 'Spinach', 'Lettuce', 'Radishes', 'Carrots', 'Arugula', 'Kale'],
+    transplant: [],
+    harvest: [],
+    tasks: ['Direct sow cool-season crops mid-month', 'Prepare raised beds and amend soil', 'Set up trellises for peas', 'Start hardening off early seedlings']
+  },
+  3: { // April
+    name: 'April',
+    indoors: ['Squash', 'Cucumbers', 'Melons', 'Pumpkins'],
+    sow: ['Beets', 'Swiss chard', 'Potatoes', 'Turnips', 'More lettuce/radish successions'],
+    transplant: ['Broccoli', 'Cauliflower', 'Cabbage', 'Kale'],
+    harvest: ['Radishes', 'Lettuce (early sown)'],
+    tasks: ['Last frost is typically mid-April for DC', 'Set up drip irrigation or soaker hoses', 'Mulch around transplants', 'Watch for aphids on brassicas']
+  },
+  4: { // May
+    name: 'May',
+    indoors: [],
+    sow: ['Beans (bush & pole)', 'Corn', 'Summer squash', 'Cucumbers', 'Okra', 'Sunflowers'],
+    transplant: ['Tomatoes', 'Peppers', 'Eggplant', 'Basil', 'Squash', 'Cucumbers'],
+    harvest: ['Peas', 'Spinach', 'Radishes', 'Lettuce', 'Strawberries (late May)'],
+    tasks: ['Transplant warm-season crops after last frost', 'Stake or cage tomatoes at planting', 'Succession plant beans every 2-3 weeks', 'Set up pest monitoring (check for flea beetles)']
+  },
+  5: { // June
+    name: 'June',
+    indoors: [],
+    sow: ['Beans (succession)', 'Summer squash (succession)', 'Basil'],
+    transplant: [],
+    harvest: ['Strawberries', 'Peas', 'Lettuce', 'Radishes', 'Garlic scapes', 'Herbs'],
+    tasks: ['Mulch heavily to retain moisture in summer heat', 'Water deeply and consistently (1-2\u2033/week)', 'Remove spent cool-season crops', 'Scout for squash vine borers and tomato hornworms']
+  },
+  6: { // July
+    name: 'July',
+    indoors: ['Broccoli (fall crop)', 'Cabbage (fall crop)', 'Cauliflower (fall crop)'],
+    sow: ['Beans (succession)', 'Carrots (fall)', 'Beets (fall)'],
+    transplant: [],
+    harvest: ['Tomatoes', 'Cucumbers', 'Squash', 'Beans', 'Peppers', 'Herbs', 'Garlic', 'Blueberries'],
+    tasks: ['Start fall brassica seeds indoors mid-July', 'Keep up with harvesting to encourage production', 'Water early morning to reduce disease', 'Side-dress heavy feeders with compost or fertilizer']
+  },
+  7: { // August
+    name: 'August',
+    indoors: [],
+    sow: ['Lettuce', 'Spinach', 'Radishes', 'Turnips', 'Kale', 'Arugula', 'Cilantro', 'Peas (late Aug)'],
+    transplant: ['Broccoli (fall)', 'Cabbage (fall)', 'Cauliflower (fall)'],
+    harvest: ['Tomatoes (peak)', 'Peppers', 'Eggplant', 'Corn', 'Cucumbers', 'Melons', 'Beans', 'Okra'],
+    tasks: ['Direct sow fall crops starting mid-August', 'Begin preserving: canning, freezing, drying', 'Water fall transplants well to establish', 'Watch for late blight on tomatoes']
+  },
+  8: { // September
+    name: 'September',
+    indoors: [],
+    sow: ['Garlic (late Sept)', 'Cover crops (crimson clover, winter rye)', 'Lettuce', 'Spinach'],
+    transplant: [],
+    harvest: ['Tomatoes', 'Peppers', 'Eggplant', 'Winter squash', 'Sweet potatoes', 'Apples', 'Fall beans'],
+    tasks: ['Plant garlic cloves in late September', 'Sow cover crops on empty beds', 'First frost is typically late October for DC', 'Save seeds from best performers']
+  },
+  9: { // October
+    name: 'October',
+    indoors: [],
+    sow: ['Garlic', 'Cover crops'],
+    transplant: [],
+    harvest: ['Fall lettuce', 'Kale', 'Broccoli', 'Carrots', 'Beets', 'Turnips', 'Winter squash', 'Pumpkins'],
+    tasks: ['Harvest remaining warm-season crops before frost', 'Clean up spent plants and compost healthy material', 'Plant garlic if not done in September', 'Set up cold frames for winter greens']
+  },
+  10: { // November
+    name: 'November',
+    indoors: [],
+    sow: [],
+    transplant: [],
+    harvest: ['Kale', 'Collards', 'Brussels sprouts (after frost)', 'Winter lettuce (cold frame)', 'Root vegetables'],
+    tasks: ['Mulch perennial beds and garlic', 'Add leaves to compost pile', 'Drain and store hoses before hard freeze', 'Review journal and note what worked this year']
+  },
+  11: { // December
+    name: 'December',
+    indoors: [],
+    sow: [],
+    transplant: [],
+    harvest: ['Kale (cold-hardy)', 'Cold frame greens'],
+    tasks: ['Plan next year\u2019s garden layout', 'Browse seed catalogs and order early', 'Maintain compost pile', 'Clean and organize seed collection', 'Rest and enjoy the off-season!']
+  }
+};
+
+let planMonth = new Date().getMonth();
+
+function renderPlan() {
+  const now = new Date();
+  const data = PLANTING_DATA[planMonth];
+  const isCurrentMonth = planMonth === now.getMonth();
+
+  document.getElementById('monthTitle').innerHTML = data.name +
+    (isCurrentMonth ? ' <span class="month-current">NOW</span>' : '');
+
+  let html = '';
+
+  if (data.indoors.length) {
+    html += `<div class="plan-section">
+      <div class="plan-section-title start-indoors">\u{1F3E0} Start Indoors</div>
+      <div class="plan-items">${data.indoors.map(i => `<div class="plan-item start-indoors">${i}</div>`).join('')}</div>
+    </div>`;
+  }
+  if (data.sow.length) {
+    html += `<div class="plan-section">
+      <div class="plan-section-title direct-sow">\u{1F331} Direct Sow</div>
+      <div class="plan-items">${data.sow.map(i => `<div class="plan-item direct-sow">${i}</div>`).join('')}</div>
+    </div>`;
+  }
+  if (data.transplant.length) {
+    html += `<div class="plan-section">
+      <div class="plan-section-title transplant">\u{1F33F} Transplant</div>
+      <div class="plan-items">${data.transplant.map(i => `<div class="plan-item transplant">${i}</div>`).join('')}</div>
+    </div>`;
+  }
+  if (data.harvest.length) {
+    html += `<div class="plan-section">
+      <div class="plan-section-title harvest">\u{1F345} Harvest</div>
+      <div class="plan-items">${data.harvest.map(i => `<div class="plan-item harvest">${i}</div>`).join('')}</div>
+    </div>`;
+  }
+  if (data.tasks.length) {
+    html += `<div class="plan-section">
+      <div class="plan-section-title tasks">\u2705 Tasks</div>
+      <div class="plan-items">${data.tasks.map(i => `<div class="plan-item tasks">${i}</div>`).join('')}</div>
+    </div>`;
+  }
+
+  document.getElementById('planContent').innerHTML = html;
+
+  // Show journal entries from this month
+  const entries = loadEntries()
+    .filter(e => {
+      const d = new Date(e.date);
+      return d.getMonth() === planMonth;
+    })
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 5);
+
+  const jEl = document.getElementById('planJournalEntries');
+  if (entries.length) {
+    jEl.innerHTML = `<h4>Your ${data.name} Observations</h4>`;
+    renderEntryCards(entries, jEl);
+  } else {
+    jEl.innerHTML = `<h4>Your ${data.name} Observations</h4>
+      <div class="empty-state" style="padding:20px"><p>No observations for ${data.name} yet.</p></div>`;
+  }
+}
+
+document.getElementById('prevMonth').addEventListener('click', () => {
+  planMonth = (planMonth - 1 + 12) % 12;
+  renderPlan();
+});
+document.getElementById('nextMonth').addEventListener('click', () => {
+  planMonth = (planMonth + 1) % 12;
+  renderPlan();
+});
+
+// ===================== ASK (Claude Chat) =====================
+let chatHistory = []; // {role, content} pairs for API
+
+function initChat() {
+  const hasKey = !!getApiKey();
+  document.getElementById('apiKeyPrompt').classList.toggle('hidden', hasKey);
+  document.getElementById('chatInputRow').classList.toggle('hidden', !hasKey);
+  if (!hasKey) {
+    document.getElementById('chatMessages').style.display = 'none';
+  } else {
+    document.getElementById('chatMessages').style.display = '';
+  }
+}
+
+document.getElementById('saveApiKey').addEventListener('click', () => {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (!key) { showToast('Please enter an API key'); return; }
+  setApiKey(key);
+  initChat();
+  showToast('API key saved!');
+});
+
+// Suggestion buttons
+document.getElementById('chatSuggestions').addEventListener('click', e => {
+  const btn = e.target.closest('.chat-suggestion-btn');
+  if (!btn) return;
+  document.getElementById('chatInput').value = btn.dataset.q;
+  sendChat();
+});
+
+document.getElementById('chatSend').addEventListener('click', sendChat);
+document.getElementById('chatInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
+});
+
+function buildSystemPrompt() {
+  const entries = loadEntries().sort((a, b) => new Date(b.date) - new Date(a.date));
+  const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const monthData = PLANTING_DATA[new Date().getMonth()];
+
+  let entrySummary = '';
+  if (entries.length > 0) {
+    const recent = entries.slice(0, 30);
+    entrySummary = '\n\nRecent garden journal entries (newest first):\n' +
+      recent.map(e => {
+        const cat = (CATEGORIES[e.category] || CATEGORIES.general).label;
+        const tags = (e.tags || []).join(', ');
+        return `[${new Date(e.date).toLocaleDateString()}] (${cat}${tags ? ', tags: ' + tags : ''}) ${e.text}`;
+      }).join('\n');
+    if (entries.length > 30) {
+      entrySummary += `\n... and ${entries.length - 30} more entries.`;
+    }
+  }
+
+  return `You are a knowledgeable, friendly gardening assistant. The user has a 1,200 sq ft garden in Washington, DC (USDA Zone 7b/8a). Today is ${today}.
+
+Current month planting guide for Zone 7b/8a:
+- Start indoors: ${monthData.indoors.join(', ') || 'nothing this month'}
+- Direct sow: ${monthData.sow.join(', ') || 'nothing this month'}
+- Transplant: ${monthData.transplant.join(', ') || 'nothing this month'}
+- Harvest: ${monthData.harvest.join(', ') || 'nothing this month'}
+- Tasks: ${monthData.tasks.join('; ')}
+${entrySummary}
+
+Guidelines:
+- Give specific, actionable advice based on their zone, location, and actual garden observations.
+- Reference their journal entries when relevant (e.g., "I see you noted aphids last week...").
+- Keep answers concise but thorough. Use bullet points for lists.
+- If they mention a problem, help diagnose it and suggest organic/integrated solutions first.
+- Be warm and encouraging.`;
+}
+
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  const apiKey = getApiKey();
+  if (!apiKey) { showToast('Please set your API key first'); return; }
+
+  // Hide suggestions after first message
+  const suggestions = document.getElementById('chatSuggestions');
+  if (suggestions) suggestions.remove();
+
+  input.value = '';
+  const messagesEl = document.getElementById('chatMessages');
+
+  // Add user message
+  const userDiv = document.createElement('div');
+  userDiv.className = 'chat-msg user';
+  userDiv.innerHTML = `<div class="chat-bubble">${escapeHtml(msg)}</div>`;
+  messagesEl.appendChild(userDiv);
+
+  // Add typing indicator
+  const typingDiv = document.createElement('div');
+  typingDiv.className = 'chat-msg assistant';
+  typingDiv.innerHTML = `<div class="chat-bubble chat-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(typingDiv);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+
+  // Build messages for API
+  chatHistory.push({ role: 'user', content: msg });
+
+  const sendBtn = document.getElementById('chatSend');
+  sendBtn.disabled = true;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-5-20250929',
+        max_tokens: 1024,
+        system: buildSystemPrompt(),
+        messages: chatHistory.slice(-20) // keep last 20 messages for context
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `API error ${response.status}`);
+    }
+
+    const data = await response.json();
+    const reply = data.content[0].text;
+    chatHistory.push({ role: 'assistant', content: reply });
+
+    // Remove typing indicator
+    typingDiv.remove();
+
+    // Add assistant message
+    const assistantDiv = document.createElement('div');
+    assistantDiv.className = 'chat-msg assistant';
+    assistantDiv.innerHTML = `<div class="chat-bubble">${formatMarkdown(reply)}</div>`;
+    messagesEl.appendChild(assistantDiv);
+
+  } catch (err) {
+    typingDiv.remove();
+    const errDiv = document.createElement('div');
+    errDiv.className = 'chat-msg assistant';
+    errDiv.innerHTML = `<div class="chat-bubble" style="color:var(--red)">Error: ${escapeHtml(err.message)}</div>`;
+    messagesEl.appendChild(errDiv);
+    chatHistory.pop(); // remove the failed user message from history
+  }
+
+  sendBtn.disabled = false;
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function formatMarkdown(text) {
+  // Simple markdown: bold, bullets, paragraphs
+  return text
+    .split('\n\n').map(para => {
+      // Check if it's a bullet list
+      const lines = para.split('\n');
+      const isList = lines.every(l => l.match(/^[-*]\s/) || l.trim() === '');
+      if (isList && lines.some(l => l.match(/^[-*]\s/))) {
+        const items = lines.filter(l => l.match(/^[-*]\s/))
+          .map(l => `<li>${formatInline(l.replace(/^[-*]\s/, ''))}</li>`).join('');
+        return `<ul>${items}</ul>`;
+      }
+      // Check numbered list
+      const isOl = lines.every(l => l.match(/^\d+\.\s/) || l.trim() === '');
+      if (isOl && lines.some(l => l.match(/^\d+\.\s/))) {
+        const items = lines.filter(l => l.match(/^\d+\.\s/))
+          .map(l => `<li>${formatInline(l.replace(/^\d+\.\s/, ''))}</li>`).join('');
+        return `<ol>${items}</ol>`;
+      }
+      return `<p>${formatInline(para.replace(/\n/g, '<br>'))}</p>`;
+    }).join('');
+}
+
+function formatInline(text) {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`(.+?)`/g, '<code>$1</code>');
+}
 
 // ===================== SETTINGS PAGE =====================
 function renderSettings() {
   const entries = loadEntries();
-  const el = document.getElementById('entryCountDisplay');
-  el.innerHTML = `<strong>${entries.length}</strong>observation${entries.length !== 1 ? 's' : ''} recorded`;
+  document.getElementById('entryCountDisplay').innerHTML =
+    `<strong>${entries.length}</strong>observation${entries.length !== 1 ? 's' : ''} recorded`;
+  document.getElementById('settingsApiKey').value = getApiKey();
 }
 
-// Export
+document.getElementById('settingsSaveKey').addEventListener('click', () => {
+  const key = document.getElementById('settingsApiKey').value.trim();
+  if (!key) { showToast('Please enter a key'); return; }
+  setApiKey(key);
+  showToast('API key saved!');
+});
+document.getElementById('settingsClearKey').addEventListener('click', () => {
+  clearApiKey();
+  document.getElementById('settingsApiKey').value = '';
+  showToast('API key removed');
+});
+
 document.getElementById('exportBtn').addEventListener('click', () => {
   const entries = loadEntries();
   const blob = new Blob([JSON.stringify(entries, null, 2)], { type: 'application/json' });
@@ -1065,10 +1451,7 @@ document.getElementById('exportBtn').addEventListener('click', () => {
   showToast('Data exported!');
 });
 
-// Import
-document.getElementById('importBtn').addEventListener('click', () => {
-  document.getElementById('importFile').click();
-});
+document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
 document.getElementById('importFile').addEventListener('change', e => {
   const file = e.target.files[0];
   if (!file) return;
@@ -1076,27 +1459,22 @@ document.getElementById('importFile').addEventListener('change', e => {
   reader.onload = () => {
     try {
       const imported = JSON.parse(reader.result);
-      if (!Array.isArray(imported)) throw new Error('Invalid format');
+      if (!Array.isArray(imported)) throw new Error();
       const existing = loadEntries();
       const existingIds = new Set(existing.map(e => e.id));
       const newEntries = imported.filter(e => e.id && e.text && !existingIds.has(e.id));
-      const merged = [...existing, ...newEntries];
-      saveEntries(merged);
+      saveEntries([...existing, ...newEntries]);
       showToast(`Imported ${newEntries.length} new entries`);
       renderSettings();
       renderJournal();
-    } catch {
-      showToast('Invalid file format');
-    }
+    } catch { showToast('Invalid file format'); }
   };
   reader.readAsText(file);
   e.target.value = '';
 });
 
-// Email backup
 document.getElementById('emailBtn').addEventListener('click', () => {
   const entries = loadEntries();
-  const count = entries.length;
   const cats = {};
   entries.forEach(e => {
     const c = (CATEGORIES[e.category] || CATEGORIES.general).label;
@@ -1107,19 +1485,12 @@ document.getElementById('emailBtn').addEventListener('click', () => {
     .slice(0, 5)
     .map(e => `  [${new Date(e.date).toLocaleDateString()}] ${e.text.slice(0, 80)}...`)
     .join('\n');
-
   const body = encodeURIComponent(
-    `Garden Journal Backup Summary\n` +
-    `Date: ${new Date().toLocaleDateString()}\n` +
-    `Total entries: ${count}\n\n` +
-    `By category:\n${summary}\n\n` +
-    `Latest entries:\n${latest}\n\n` +
-    `(Full data should be exported as JSON from the app for complete backup)`
+    `Garden Journal Backup Summary\nDate: ${new Date().toLocaleDateString()}\nTotal entries: ${entries.length}\n\nBy category:\n${summary}\n\nLatest entries:\n${latest}\n\n(Export full data as JSON from the app for complete backup)`
   );
   window.location.href = `mailto:?subject=${encodeURIComponent('Garden Journal Backup - ' + new Date().toLocaleDateString())}&body=${body}`;
 });
 
-// Clear all data
 document.getElementById('clearBtn').addEventListener('click', () => {
   showConfirm('Delete ALL journal data? This cannot be undone.', () => {
     localStorage.removeItem(STORAGE_KEY);
@@ -1132,7 +1503,6 @@ document.getElementById('clearBtn').addEventListener('click', () => {
 // ===================== INIT =====================
 renderJournal();
 
-// ===================== SERVICE WORKER =====================
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }
