@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Garden Journal</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4a7c59">
+
+<!-- Apple PWA -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Garden">
+<link rel="apple-touch-icon" href="icons/icon-192.svg">
+
+<!-- Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green-dark: #3a6349;
+  --green: #4a7c59;
+  --green-light: #6a9b78;
+  --green-pale: #e8f0ea;
+  --brown: #8b6f47;
+  --brown-light: #a8896a;
+  --cream: #faf6f0;
+  --cream-dark: #f0e8da;
+  --text: #2c2c2c;
+  --text-light: #6b6b6b;
+  --white: #ffffff;
+  --red: #c25050;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+  --radius: 12px;
+  --nav-height: 64px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  min-height: 100vh;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Header */
+.header {
+  background: var(--green);
+  color: var(--white);
+  padding: 16px 20px;
+  padding-top: calc(env(safe-area-inset-top, 16px) + 8px);
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow);
+}
+.header h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.header-sub {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+/* Pages */
+.page {
+  display: none;
+  padding: 16px;
+  padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 24px);
+  max-width: 600px;
+  margin: 0 auto;
+}
+.page.active { display: block; }
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: calc(var(--nav-height) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+  z-index: 100;
+}
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: color 0.2s;
+}
+.nav-btn .nav-icon { font-size: 1.5rem; }
+.nav-btn.active { color: var(--green); }
+
+/* Cards */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+
+/* Entry cards */
+.entry-card { cursor: pointer; transition: transform 0.15s; }
+.entry-card:active { transform: scale(0.98); }
+.entry-date {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+.entry-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.entry-text.expanded {
+  -webkit-line-clamp: unset;
+}
+.entry-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Badges / Tags */
+.badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--green-pale);
+  color: var(--green-dark);
+}
+.badge.cat { background: var(--green); color: var(--white); }
+.tag {
+  font-size: 0.7rem;
+  color: var(--brown);
+  background: var(--cream-dark);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* Category selector */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.cat-btn {
+  padding: 10px 8px;
+  border: 2px solid var(--cream-dark);
+  border-radius: var(--radius);
+  background: var(--white);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+}
+.cat-btn .cat-icon { display: block; font-size: 1.3rem; margin-bottom: 4px; }
+.cat-btn.selected {
+  border-color: var(--green);
+  background: var(--green-pale);
+  color: var(--green-dark);
+}
+
+/* Form elements */
+.input-group { margin-bottom: 16px; }
+.input-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+textarea, input[type="text"], input[type="date"] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--cream-dark);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1rem;
+  background: var(--white);
+  color: var(--text);
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+textarea:focus, input:focus {
+  outline: none;
+  border-color: var(--green-light);
+}
+textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--green); color: var(--white); width: 100%; }
+.btn-primary:hover { background: var(--green-dark); }
+.btn-secondary {
+  background: var(--cream-dark);
+  color: var(--text);
+  width: 100%;
+}
+.btn-danger { background: var(--red); color: var(--white); }
+.btn-small { padding: 8px 16px; font-size: 0.85rem; width: auto; }
+.btn-icon {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  border: none;
+  cursor: pointer;
+}
+
+/* Mic button */
+.mic-btn {
+  background: var(--green);
+  color: var(--white);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.mic-btn.listening {
+  background: var(--red);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(194, 80, 80, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(194, 80, 80, 0); }
+}
+.mic-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.mic-hint {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+/* Filter bar on journal page */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+.filter-chip {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 2px solid var(--cream-dark);
+  background: var(--white);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-light);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.filter-chip.active {
+  border-color: var(--green);
+  background: var(--green);
+  color: var(--white);
+}
+
+/* Search page */
+.search-box {
+  position: relative;
+  margin-bottom: 12px;
+}
+.search-box input {
+  padding-left: 40px;
+}
+.search-box .search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: var(--text-light);
+  pointer-events: none;
+}
+.date-range {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  align-items: center;
+}
+.date-range input { flex: 1; font-size: 0.85rem; padding: 10px; }
+.date-range span { color: var(--text-light); font-size: 0.85rem; }
+
+/* Settings */
+.settings-section {
+  margin-bottom: 20px;
+}
+.settings-section h3 {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.settings-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.entry-count {
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.85rem;
+  padding: 20px;
+}
+.entry-count strong {
+  display: block;
+  font-size: 2rem;
+  color: var(--green);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-light);
+}
+.empty-state .empty-icon { font-size: 3rem; margin-bottom: 12px; }
+.empty-state p { font-size: 0.95rem; line-height: 1.5; }
+
+/* Detail overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 200;
+  align-items: flex-end;
+  justify-content: center;
+}
+.overlay.open { display: flex; }
+.overlay-panel {
+  background: var(--white);
+  width: 100%;
+  max-width: 600px;
+  max-height: 85vh;
+  border-radius: 20px 20px 0 0;
+  padding: 20px;
+  padding-bottom: calc(20px + var(--safe-bottom));
+  overflow-y: auto;
+  animation: slideUp 0.25s ease-out;
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.overlay-handle {
+  width: 36px;
+  height: 4px;
+  background: var(--cream-dark);
+  border-radius: 2px;
+  margin: 0 auto 16px;
+}
+.detail-date {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+.detail-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.detail-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--text);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 300;
+  opacity: 0;
+  transition: all 0.3s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Confirm dialog */
+.confirm-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 300;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.confirm-overlay.open { display: flex; }
+.confirm-box {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px;
+  max-width: 320px;
+  width: 100%;
+  text-align: center;
+}
+.confirm-box p { margin-bottom: 20px; font-size: 0.95rem; line-height: 1.5; }
+.confirm-actions { display: flex; gap: 10px; }
+.confirm-actions .btn { flex: 1; }
+
+/* Hidden file input */
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>Garden Journal</h1>
+  <div class="header-sub">Zone 7b/8a &middot; Washington, DC</div>
+</div>
+
+<!-- ===== JOURNAL PAGE ===== -->
+<div id="page-journal" class="page active">
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-chip active" data-cat="all">All</button>
+    <button class="filter-chip" data-cat="seedlings">Seedlings</button>
+    <button class="filter-chip" data-cat="beds">Beds/Plots</button>
+    <button class="filter-chip" data-cat="harvest">Harvest</button>
+    <button class="filter-chip" data-cat="pests">Pests/Disease</button>
+    <button class="filter-chip" data-cat="weather">Weather</button>
+    <button class="filter-chip" data-cat="watering">Watering</button>
+    <button class="filter-chip" data-cat="general">General</button>
+  </div>
+  <div id="journalEntries"></div>
+</div>
+
+<!-- ===== ADD PAGE ===== -->
+<div id="page-add" class="page">
+  <div class="card">
+    <div class="input-group">
+      <label>What did you observe?</label>
+      <div class="mic-row">
+        <textarea id="entryText" placeholder="Tap the mic or start typing..."></textarea>
+        <button class="mic-btn" id="micBtn" title="Voice input">🎤</button>
+      </div>
+      <div class="mic-hint" id="micHint">Tap the microphone to dictate</div>
+    </div>
+
+    <div class="input-group">
+      <label>Category</label>
+      <div class="cat-grid" id="catGrid">
+        <button class="cat-btn" data-cat="seedlings">
+          <span class="cat-icon">🌱</span>Seedlings
+        </button>
+        <button class="cat-btn" data-cat="beds">
+          <span class="cat-icon">🌿</span>Beds/Plots
+        </button>
+        <button class="cat-btn" data-cat="harvest">
+          <span class="cat-icon">🍅</span>Harvest
+        </button>
+        <button class="cat-btn" data-cat="pests">
+          <span class="cat-icon">🐛</span>Pests
+        </button>
+        <button class="cat-btn" data-cat="weather">
+          <span class="cat-icon">🌤️</span>Weather
+        </button>
+        <button class="cat-btn" data-cat="watering">
+          <span class="cat-icon">💧</span>Watering
+        </button>
+        <button class="cat-btn selected" data-cat="general">
+          <span class="cat-icon">📝</span>General
+        </button>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>Tags <span style="font-weight:400;color:var(--text-light)">(comma separated, optional)</span></label>
+      <input type="text" id="entryTags" placeholder="e.g. tomato, indoor, raised bed">
+    </div>
+
+    <button class="btn btn-primary" id="saveBtn">Save Observation</button>
+  </div>
+</div>
+
+<!-- ===== SEARCH PAGE ===== -->
+<div id="page-search" class="page">
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search observations...">
+  </div>
+  <div class="date-range">
+    <input type="date" id="dateFrom" placeholder="From">
+    <span>to</span>
+    <input type="date" id="dateTo" placeholder="To">
+  </div>
+  <div class="filter-bar" id="searchFilterBar">
+    <button class="filter-chip active" data-cat="all">All</button>
+    <button class="filter-chip" data-cat="seedlings">Seedlings</button>
+    <button class="filter-chip" data-cat="beds">Beds/Plots</button>
+    <button class="filter-chip" data-cat="harvest">Harvest</button>
+    <button class="filter-chip" data-cat="pests">Pests/Disease</button>
+    <button class="filter-chip" data-cat="weather">Weather</button>
+    <button class="filter-chip" data-cat="watering">Watering</button>
+    <button class="filter-chip" data-cat="general">General</button>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+<!-- ===== SETTINGS PAGE ===== -->
+<div id="page-settings" class="page">
+  <div class="card">
+    <div id="entryCountDisplay" class="entry-count"></div>
+  </div>
+
+  <div class="settings-section">
+    <h3>Data Management</h3>
+    <div class="settings-row">
+      <button class="btn btn-secondary btn-small" id="exportBtn">📥 Export JSON</button>
+      <button class="btn btn-secondary btn-small" id="importBtn">📤 Import JSON</button>
+    </div>
+    <input type="file" id="importFile" accept=".json" class="hidden">
+  </div>
+
+  <div class="settings-section">
+    <h3>Backup</h3>
+    <div class="settings-row">
+      <button class="btn btn-secondary btn-small" id="emailBtn">✉️ Email Backup</button>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <h3>Danger Zone</h3>
+    <div class="settings-row">
+      <button class="btn btn-danger btn-small" id="clearBtn">🗑️ Delete All Data</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DETAIL OVERLAY ===== -->
+<div class="overlay" id="detailOverlay">
+  <div class="overlay-panel">
+    <div class="overlay-handle"></div>
+    <div class="detail-date" id="detailDate"></div>
+    <div class="entry-meta" id="detailMeta" style="margin-bottom:12px"></div>
+    <div class="detail-text" id="detailText"></div>
+    <div class="detail-actions">
+      <button class="btn btn-secondary btn-small" id="detailEditBtn">Edit</button>
+      <button class="btn btn-danger btn-small" id="detailDeleteBtn">Delete</button>
+      <button class="btn btn-secondary btn-small" style="margin-left:auto" id="detailCloseBtn">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONFIRM DIALOG ===== -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <p id="confirmMsg"></p>
+    <div class="confirm-actions">
+      <button class="btn btn-secondary btn-small" id="confirmNo">Cancel</button>
+      <button class="btn btn-danger btn-small" id="confirmYes">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<!-- ===== BOTTOM NAV ===== -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" data-page="journal">
+    <span class="nav-icon">📖</span>Journal
+  </button>
+  <button class="nav-btn" data-page="add">
+    <span class="nav-icon">➕</span>Add
+  </button>
+  <button class="nav-btn" data-page="search">
+    <span class="nav-icon">🔍</span>Search
+  </button>
+  <button class="nav-btn" data-page="settings">
+    <span class="nav-icon">⚙️</span>Settings
+  </button>
+</nav>
+
+<script>
+// ===================== DATA LAYER =====================
+const STORAGE_KEY = 'garden-journal-entries';
+const CATEGORIES = {
+  seedlings: { label: 'Seedlings', icon: '🌱' },
+  beds:      { label: 'Beds/Plots', icon: '🌿' },
+  harvest:   { label: 'Harvest', icon: '🍅' },
+  pests:     { label: 'Pests/Disease', icon: '🐛' },
+  weather:   { label: 'Weather', icon: '🌤️' },
+  watering:  { label: 'Watering', icon: '💧' },
+  general:   { label: 'General', icon: '📝' }
+};
+
+function loadEntries() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  } catch { return []; }
+}
+
+function saveEntries(entries) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+}
+
+function generateId() {
+  return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+}
+
+// ===================== NAVIGATION =====================
+const pages = document.querySelectorAll('.page');
+const navBtns = document.querySelectorAll('.nav-btn');
+
+function navigate(pageName) {
+  pages.forEach(p => p.classList.toggle('active', p.id === 'page-' + pageName));
+  navBtns.forEach(b => b.classList.toggle('active', b.dataset.page === pageName));
+  if (pageName === 'journal') renderJournal();
+  if (pageName === 'settings') renderSettings();
+  window.scrollTo(0, 0);
+}
+
+navBtns.forEach(btn => btn.addEventListener('click', () => navigate(btn.dataset.page)));
+
+// ===================== TOAST =====================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ===================== CONFIRM DIALOG =====================
+let confirmCallback = null;
+function showConfirm(msg, cb) {
+  document.getElementById('confirmMsg').textContent = msg;
+  document.getElementById('confirmOverlay').classList.add('open');
+  confirmCallback = cb;
+}
+document.getElementById('confirmNo').addEventListener('click', () => {
+  document.getElementById('confirmOverlay').classList.remove('open');
+  confirmCallback = null;
+});
+document.getElementById('confirmYes').addEventListener('click', () => {
+  document.getElementById('confirmOverlay').classList.remove('open');
+  if (confirmCallback) confirmCallback();
+  confirmCallback = null;
+});
+
+// ===================== FORMAT HELPERS =====================
+function formatDate(iso) {
+  const d = new Date(iso);
+  const now = new Date();
+  const diffMs = now - d;
+  const diffDays = Math.floor(diffMs / 86400000);
+
+  if (diffDays === 0) {
+    return 'Today at ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  } else if (diffDays === 1) {
+    return 'Yesterday at ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  } else if (diffDays < 7) {
+    return d.toLocaleDateString('en-US', { weekday: 'long' }) + ' at ' +
+           d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  }
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) +
+         ' at ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+}
+
+function formatDateLong(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  }) + ' at ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+}
+
+// ===================== RENDER ENTRIES =====================
+function renderEntryCards(entries, container) {
+  if (entries.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🌻</div>
+        <p>No observations yet.<br>Tap <strong>Add</strong> to record your first one!</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = entries.map(e => {
+    const cat = CATEGORIES[e.category] || CATEGORIES.general;
+    const tagsHtml = (e.tags || []).filter(t => t).map(t =>
+      `<span class="tag">${escapeHtml(t)}</span>`
+    ).join('');
+    return `
+      <div class="card entry-card" data-id="${e.id}">
+        <div class="entry-date">${formatDate(e.date)}</div>
+        <div class="entry-text">${escapeHtml(e.text)}</div>
+        <div class="entry-meta">
+          <span class="badge cat">${cat.icon} ${cat.label}</span>
+          ${tagsHtml}
+        </div>
+      </div>`;
+  }).join('');
+
+  container.querySelectorAll('.entry-card').forEach(card => {
+    card.addEventListener('click', () => openDetail(card.dataset.id));
+  });
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ===================== JOURNAL PAGE =====================
+let journalFilter = 'all';
+
+function renderJournal() {
+  let entries = loadEntries().sort((a, b) => new Date(b.date) - new Date(a.date));
+  if (journalFilter !== 'all') {
+    entries = entries.filter(e => e.category === journalFilter);
+  }
+  renderEntryCards(entries, document.getElementById('journalEntries'));
+}
+
+document.getElementById('filterBar').addEventListener('click', e => {
+  const chip = e.target.closest('.filter-chip');
+  if (!chip) return;
+  document.querySelectorAll('#filterBar .filter-chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  journalFilter = chip.dataset.cat;
+  renderJournal();
+});
+
+// ===================== ADD PAGE =====================
+let selectedCategory = 'general';
+
+document.getElementById('catGrid').addEventListener('click', e => {
+  const btn = e.target.closest('.cat-btn');
+  if (!btn) return;
+  document.querySelectorAll('#catGrid .cat-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedCategory = btn.dataset.cat;
+});
+
+document.getElementById('saveBtn').addEventListener('click', () => {
+  const text = document.getElementById('entryText').value.trim();
+  if (!text) {
+    showToast('Please enter an observation');
+    return;
+  }
+
+  const tagsRaw = document.getElementById('entryTags').value;
+  const tags = tagsRaw.split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
+
+  const entry = {
+    id: generateId(),
+    date: new Date().toISOString(),
+    text,
+    category: selectedCategory,
+    tags,
+    photo: null
+  };
+
+  const entries = loadEntries();
+  entries.push(entry);
+  saveEntries(entries);
+
+  // Reset form
+  document.getElementById('entryText').value = '';
+  document.getElementById('entryTags').value = '';
+  selectedCategory = 'general';
+  document.querySelectorAll('#catGrid .cat-btn').forEach(b =>
+    b.classList.toggle('selected', b.dataset.cat === 'general')
+  );
+
+  showToast('Observation saved!');
+  navigate('journal');
+});
+
+// ===================== VOICE INPUT =====================
+const micBtn = document.getElementById('micBtn');
+const micHint = document.getElementById('micHint');
+const entryText = document.getElementById('entryText');
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = null;
+let isListening = false;
+
+if (SpeechRecognition) {
+  recognition = new SpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+
+  let finalTranscript = '';
+
+  recognition.onresult = (e) => {
+    let interim = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) {
+        finalTranscript += e.results[i][0].transcript;
+      } else {
+        interim += e.results[i][0].transcript;
+      }
+    }
+    const existing = entryText.value.slice(0, entryText.value.length - (entryText.dataset.interim || '').length);
+    entryText.value = existing + finalTranscript + interim;
+    entryText.dataset.interim = interim;
+  };
+
+  recognition.onend = () => {
+    isListening = false;
+    micBtn.classList.remove('listening');
+    micBtn.textContent = '🎤';
+    micHint.textContent = 'Tap the microphone to dictate';
+    entryText.dataset.interim = '';
+    finalTranscript = '';
+  };
+
+  recognition.onerror = () => {
+    isListening = false;
+    micBtn.classList.remove('listening');
+    micBtn.textContent = '🎤';
+    micHint.textContent = 'Tap the microphone to dictate';
+    finalTranscript = '';
+  };
+
+  micBtn.addEventListener('click', () => {
+    if (isListening) {
+      recognition.stop();
+    } else {
+      finalTranscript = '';
+      entryText.dataset.interim = '';
+      recognition.start();
+      isListening = true;
+      micBtn.classList.add('listening');
+      micBtn.textContent = '⏹';
+      micHint.textContent = 'Listening... tap to stop';
+    }
+  });
+} else {
+  // No Web Speech API — guide user to iOS keyboard dictation
+  micBtn.addEventListener('click', () => {
+    entryText.focus();
+    micHint.innerHTML = 'Tap the <strong>🎤 on your keyboard</strong> to dictate';
+  });
+  micHint.innerHTML = 'Use the <strong>🎤 on your keyboard</strong> to dictate';
+}
+
+// ===================== SEARCH PAGE =====================
+let searchFilter = 'all';
+const searchInput = document.getElementById('searchInput');
+const dateFrom = document.getElementById('dateFrom');
+const dateTo = document.getElementById('dateTo');
+
+function performSearch() {
+  const query = searchInput.value.trim().toLowerCase();
+  const from = dateFrom.value ? new Date(dateFrom.value + 'T00:00:00') : null;
+  const to = dateTo.value ? new Date(dateTo.value + 'T23:59:59') : null;
+
+  let entries = loadEntries().sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  if (searchFilter !== 'all') {
+    entries = entries.filter(e => e.category === searchFilter);
+  }
+  if (query) {
+    entries = entries.filter(e =>
+      e.text.toLowerCase().includes(query) ||
+      (e.tags || []).some(t => t.toLowerCase().includes(query))
+    );
+  }
+  if (from) {
+    entries = entries.filter(e => new Date(e.date) >= from);
+  }
+  if (to) {
+    entries = entries.filter(e => new Date(e.date) <= to);
+  }
+
+  renderEntryCards(entries, document.getElementById('searchResults'));
+}
+
+searchInput.addEventListener('input', performSearch);
+dateFrom.addEventListener('change', performSearch);
+dateTo.addEventListener('change', performSearch);
+
+document.getElementById('searchFilterBar').addEventListener('click', e => {
+  const chip = e.target.closest('.filter-chip');
+  if (!chip) return;
+  document.querySelectorAll('#searchFilterBar .filter-chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  searchFilter = chip.dataset.cat;
+  performSearch();
+});
+
+// ===================== DETAIL OVERLAY =====================
+let currentDetailId = null;
+
+function openDetail(id) {
+  const entries = loadEntries();
+  const entry = entries.find(e => e.id === id);
+  if (!entry) return;
+
+  currentDetailId = id;
+  const cat = CATEGORIES[entry.category] || CATEGORIES.general;
+
+  document.getElementById('detailDate').textContent = formatDateLong(entry.date);
+  document.getElementById('detailText').textContent = entry.text;
+
+  const metaHtml = `<span class="badge cat">${cat.icon} ${cat.label}</span>` +
+    (entry.tags || []).filter(t => t).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+  document.getElementById('detailMeta').innerHTML = metaHtml;
+
+  document.getElementById('detailOverlay').classList.add('open');
+}
+
+document.getElementById('detailCloseBtn').addEventListener('click', () => {
+  document.getElementById('detailOverlay').classList.remove('open');
+  currentDetailId = null;
+});
+
+document.getElementById('detailOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('detailOverlay')) {
+    document.getElementById('detailOverlay').classList.remove('open');
+    currentDetailId = null;
+  }
+});
+
+document.getElementById('detailDeleteBtn').addEventListener('click', () => {
+  showConfirm('Delete this observation? This cannot be undone.', () => {
+    let entries = loadEntries();
+    entries = entries.filter(e => e.id !== currentDetailId);
+    saveEntries(entries);
+    document.getElementById('detailOverlay').classList.remove('open');
+    currentDetailId = null;
+    renderJournal();
+    performSearch();
+    showToast('Observation deleted');
+  });
+});
+
+document.getElementById('detailEditBtn').addEventListener('click', () => {
+  const entries = loadEntries();
+  const entry = entries.find(e => e.id === currentDetailId);
+  if (!entry) return;
+
+  document.getElementById('detailOverlay').classList.remove('open');
+
+  // Populate add form with entry data
+  document.getElementById('entryText').value = entry.text;
+  document.getElementById('entryTags').value = (entry.tags || []).join(', ');
+  selectedCategory = entry.category;
+  document.querySelectorAll('#catGrid .cat-btn').forEach(b =>
+    b.classList.toggle('selected', b.dataset.cat === entry.category)
+  );
+
+  // Delete old entry
+  const remaining = entries.filter(e => e.id !== currentDetailId);
+  saveEntries(remaining);
+  currentDetailId = null;
+
+  navigate('add');
+  showToast('Editing observation — save when done');
+});
+
+// ===================== SETTINGS PAGE =====================
+function renderSettings() {
+  const entries = loadEntries();
+  const el = document.getElementById('entryCountDisplay');
+  el.innerHTML = `<strong>${entries.length}</strong>observation${entries.length !== 1 ? 's' : ''} recorded`;
+}
+
+// Export
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const entries = loadEntries();
+  const blob = new Blob([JSON.stringify(entries, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `garden-journal-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Data exported!');
+});
+
+// Import
+document.getElementById('importBtn').addEventListener('click', () => {
+  document.getElementById('importFile').click();
+});
+document.getElementById('importFile').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const imported = JSON.parse(reader.result);
+      if (!Array.isArray(imported)) throw new Error('Invalid format');
+      const existing = loadEntries();
+      const existingIds = new Set(existing.map(e => e.id));
+      const newEntries = imported.filter(e => e.id && e.text && !existingIds.has(e.id));
+      const merged = [...existing, ...newEntries];
+      saveEntries(merged);
+      showToast(`Imported ${newEntries.length} new entries`);
+      renderSettings();
+      renderJournal();
+    } catch {
+      showToast('Invalid file format');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+});
+
+// Email backup
+document.getElementById('emailBtn').addEventListener('click', () => {
+  const entries = loadEntries();
+  const count = entries.length;
+  const cats = {};
+  entries.forEach(e => {
+    const c = (CATEGORIES[e.category] || CATEGORIES.general).label;
+    cats[c] = (cats[c] || 0) + 1;
+  });
+  const summary = Object.entries(cats).map(([k, v]) => `  ${k}: ${v}`).join('\n');
+  const latest = entries.sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 5)
+    .map(e => `  [${new Date(e.date).toLocaleDateString()}] ${e.text.slice(0, 80)}...`)
+    .join('\n');
+
+  const body = encodeURIComponent(
+    `Garden Journal Backup Summary\n` +
+    `Date: ${new Date().toLocaleDateString()}\n` +
+    `Total entries: ${count}\n\n` +
+    `By category:\n${summary}\n\n` +
+    `Latest entries:\n${latest}\n\n` +
+    `(Full data should be exported as JSON from the app for complete backup)`
+  );
+  window.location.href = `mailto:?subject=${encodeURIComponent('Garden Journal Backup - ' + new Date().toLocaleDateString())}&body=${body}`;
+});
+
+// Clear all data
+document.getElementById('clearBtn').addEventListener('click', () => {
+  showConfirm('Delete ALL journal data? This cannot be undone.', () => {
+    localStorage.removeItem(STORAGE_KEY);
+    renderSettings();
+    renderJournal();
+    showToast('All data deleted');
+  });
+});
+
+// ===================== INIT =====================
+renderJournal();
+
+// ===================== SERVICE WORKER =====================
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>

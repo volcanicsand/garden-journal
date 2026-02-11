@@ -1,0 +1,24 @@
+{
+  "name": "Garden Journal",
+  "short_name": "Garden",
+  "description": "Voice-powered garden observation journal for Zone 7b/8a",
+  "start_url": "/garden-journal/",
+  "display": "standalone",
+  "background_color": "#faf6f0",
+  "theme_color": "#4a7c59",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
